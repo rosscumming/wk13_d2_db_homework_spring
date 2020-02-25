@@ -17,11 +17,11 @@ public class Folder {
     @Column(name = "title")
     private String title;
 
-    @JsonIgnoreProperties("folders")
-    @OneToMany(mappedBy = "folders")
+    @JsonIgnoreProperties("folder")
+    @OneToMany(mappedBy = "folder")
     private List<File> files;
 
-    @JsonIgnoreProperties("users")
+    @JsonIgnoreProperties("user")
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
