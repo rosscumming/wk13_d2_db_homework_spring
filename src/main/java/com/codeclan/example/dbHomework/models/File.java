@@ -1,21 +1,37 @@
 package com.codeclan.example.dbHomework.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.persistence.*;
+
+
+@Entity
+@Table(name = "files")
 public class File {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String extension;
-    private int size;
-    private List<Folder> folders;
 
-    public File(String name, String extension, int size) {
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "extension")
+    private String extension;
+
+    @Column(name = "size")
+    private int size;
+
+    @JsonIgnoreProperties("folders")
+    @ManyToOne
+    @JoinColumn(name = "folder_id", nullable = false)
+    private Folder folder;
+
+    public File(String name, String extension, int size, Folder folder) {
         this.name = name;
         this.extension = extension;
         this.size = size;
-        this.folders = new ArrayList<>();
+        this.folder = folder;
     }
 
     public File() {
